@@ -1,0 +1,86 @@
+:host { display:block; color: var(--fg); }
+
+.browse-grid {
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1rem;
+}
+@media (max-width: 860px) {
+  .browse-grid { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: color-mix(in oklab, var(--card) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.muted { opacity:.75; }
+
+.shop-list {
+  list-style:none;
+  padding:0; margin:.25rem 0;
+  display:flex; flex-direction:column; gap:.5rem;
+  max-height: 420px; overflow:auto;
+}
+.shop-list li {
+  border:1px solid var(--border);
+  border-radius: 12px;
+  padding:.6rem .7rem;
+  background: color-mix(in oklab, var(--card) 96%, transparent);
+  cursor:pointer;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+.shop-list li:hover {
+  transform: translateY(-1px);
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+}
+.shop-list li.active {
+  border-color: var(--fg);
+  outline: 2px solid color-mix(in oklab, var(--fg) 30%, transparent);
+}
+.shop-name { font-weight: 600; }
+.shop-addr { font-size:.92rem; opacity:.8; }
+
+.shop-actions { margin-top:.5rem; }
+
+.items {
+  width:100%;
+  border-collapse: collapse;
+  margin-top:.5rem;
+}
+.items th, .items td {
+  padding:.5rem .4rem;
+  border-bottom:1px dashed var(--border);
+}
+.items thead th {
+  border-bottom:1px solid var(--border);
+}
+
+.input {
+  width: 100%;
+  padding:.55rem .7rem;
+  border:1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--fg);
+}
+
+.search-row {
+  display:flex; gap:.5rem; align-items:center;
+  max-width: 460px;
+}
+.btn {
+  padding:.55rem .9rem;
+  border-radius:10px;
+  border:1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  cursor:pointer;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--fg);
+  border-color: var(--fg);
+}

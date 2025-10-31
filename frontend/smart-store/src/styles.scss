@@ -1,0 +1,212 @@
+/* ================== THEME TOKENS ================== */
+:root {
+  /* default (ocean) */
+  --bg: #0b1020;
+  --bg-2: #101735;
+  --card: rgba(255,255,255,.06);
+  --card-border: rgba(255,255,255,.12);
+  --text: #eef1f8;
+  --muted: #b9c0d4;
+  --primary: #7aa2ff;
+  --primary-2: #66f0d7;
+  --danger: #ff6b6b;
+  --radius: 16px;
+  --shadow: 0 8px 30px rgba(0,0,0,.25);
+  --fg: var(--text);
+  --border: var(--card-border);
+}
+
+/* ==== THEMES (switch with data-theme on <html>) ==== */
+:root[data-theme="ocean"] {
+  --bg: #0b1020; --bg-2: #101735;
+  --primary:#7aa2ff; --primary-2:#66f0d7;
+}
+:root[data-theme="aurora"] {
+  --bg:#0d0f1a; --bg-2:#161b2e;
+  --primary:#c084fc; --primary-2:#60a5fa; /* purple → blue */
+}
+:root[data-theme="sunset"] {
+  --bg:#170c16; --bg-2:#2b1422;
+  --primary:#ff8a8a; --primary-2:#ffd166; /* coral → gold */
+}
+:root[data-theme="forest"] {
+  --bg:#08120d; --bg-2:#0f1c14;
+  --primary:#6ee7b7; --primary-2:#a7f3d0; /* mint → light mint */
+}
+
+/* Light themes */
+:root[data-theme="peach"] {
+  --bg: #fff7f3; --bg-2: #ffe9e0; /* soft peach background */
+  --text: #1a1a1a; --muted: #5f5f5f;
+  --card: #ffffff; --card-border: rgba(0,0,0,.08);
+  --primary: #ff9671; --primary-2: #ffd3b6; /* peach → cream */
+  --danger: #e25555;
+  --shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+:root[data-theme="lavender"] {
+  --bg: #f7f4ff; --bg-2: #efeaff; /* airy lavender background */
+  --text: #1a1a1a; --muted: #606072;
+  --card: #ffffff; --card-border: rgba(0,0,0,.08);
+  --primary: #a78bfa; --primary-2: #c4b5fd; /* soft purple range */
+  --danger: #e25555;
+  --shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+/* ================== BASE BACKGROUND ================== */
+html, body { height: 100%; }
+body {
+  margin: 0; color: var(--text);
+  background:
+    radial-gradient(1200px 800px at 10% -10%, color-mix(in oklab, var(--primary) 40%, transparent), transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, color-mix(in oklab, var(--primary-2) 35%, transparent), transparent 65%),
+    radial-gradient(800px 600px at 50% 120%, rgba(255,255,255,.06), transparent 60%),
+    linear-gradient(180deg, var(--bg), var(--bg-2));
+  font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+/* ================== BG SLIDESHOW ================== */
+.bg-slideshow { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.bg-slide {
+  position: absolute; inset: -5%;
+  background-size: cover; background-position: center;
+  opacity: 0; transform: scale(1.07);
+  animation: bgFade 24s infinite; will-change: opacity, transform;
+  filter: blur(2px) saturate(105%) brightness(90%);
+}
+
+/* slide 1: ocean glass */
+.bg-slide:nth-child(1) {
+  animation-delay: 0s;
+  background-image:
+    radial-gradient(1200px 900px at 15% 15%, color-mix(in oklab, var(--primary) 28%, transparent), transparent 60%),
+    radial-gradient(900px 700px at 85% 25%, color-mix(in oklab, var(--primary-2) 22%, transparent), transparent 65%),
+    conic-gradient(from 210deg at 40% 60%, rgba(255,255,255,.07), rgba(255,255,255,0) 35%),
+    linear-gradient(180deg, var(--bg), var(--bg-2));
+}
+
+/* slide 2: aurora waves */
+.bg-slide:nth-child(2) {
+  animation-delay: 8s;
+  background-image:
+    radial-gradient(1000px 800px at 80% 10%, color-mix(in oklab, var(--primary-2) 30%, transparent), transparent 62%),
+    conic-gradient(from 120deg at 30% 70%, rgba(255,255,255,.06), rgba(255,255,255,0) 40%),
+    radial-gradient(700px 600px at 20% 80%, color-mix(in oklab, var(--primary) 20%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--bg), var(--bg-2));
+}
+
+/* slide 3: sunset bloom */
+.bg-slide:nth-child(3) {
+  animation-delay: 16s;
+  background-image:
+    radial-gradient(1100px 850px at 20% 30%, color-mix(in oklab, var(--primary) 24%, transparent), transparent 60%),
+    radial-gradient(900px 700px at 75% 70%, color-mix(in oklab, var(--primary-2) 26%, transparent), transparent 60%),
+    conic-gradient(from -30deg at 60% 40%, rgba(255,255,255,.05), rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, var(--bg), var(--bg-2));
+}
+
+/* subtle film grain overlay (inline SVG noise) */
+.bg-grain {
+  position: absolute; inset: 0;
+  opacity: .06; pointer-events: none; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'>\
+  <filter id='n'>\
+    <feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/>\
+    <feColorMatrix type='saturate' values='0'/>\
+  </filter>\
+  <rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/>\
+</svg>");
+  background-size: 220px 220px;
+  animation: grainShift 6s steps(4,end) infinite;
+}
+
+/* grain drift for a living background */
+@keyframes grainShift {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-1%, 1%); }
+  50% { transform: translate(-2%, -1%); }
+  75% { transform: translate(1%, -2%); }
+  100% { transform: translate(0,0); }
+}
+
+/* slideshow fade timings */
+@keyframes bgFade {
+  0%   { opacity: 0; transform: scale(1.08); }
+  10%  { opacity: .45; }
+  33%  { opacity: .45; transform: scale(1.00); }
+  43%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bg-slide { animation: none; opacity: .18; transform: none; }
+  .bg-grain { animation: none; }
+}
+
+/* ================== APP SHELL / UI ================== */
+.app-shell { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr; }
+
+.nav {
+  display:flex; gap:1rem; align-items:center;
+  padding: .8rem 1rem; position: sticky; top: 0; z-index: 10;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+}
+.nav a { color: var(--text); text-decoration: none; opacity:.9; transition: opacity .2s ease, transform .2s ease; }
+.nav a:hover { opacity: 1; transform: translateY(-1px); }
+.nav .spacer { flex: 1; }
+.nav .logout {
+  padding:.4rem .8rem; border:1px solid var(--card-border); border-radius: 999px;
+  background: rgba(255,255,255,.08); color: var(--text); cursor: pointer;
+  transition: transform .15s ease, background .2s ease;
+}
+.nav .logout:hover { transform: translateY(-1px); background: rgba(255,255,255,.14); }
+
+.container { padding: clamp(12px, 2vw, 20px); }
+.page {
+  margin: 20px auto; max-width: 1100px;
+  padding: clamp(16px, 2.4vw, 28px);
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  animation: floatUp .4s ease both;
+}
+.card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
+
+h1,h2,h3 { margin: 0 0 .6rem; letter-spacing: .2px; }
+h2 { font-weight: 700; }
+
+/* Inputs & buttons */
+.input {
+  width: 100%; padding: .6rem .75rem; color: var(--text);
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--card-border);
+  border-radius: 10px; outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .08s ease;
+}
+.input:focus {
+  border-color: rgba(122,162,255,.7);
+  box-shadow: 0 0 0 4px rgba(122,162,255,.15);
+  transform: translateY(-1px);
+}
+.btn {
+  padding: .55rem .9rem; border-radius: 10px; border: 1px solid transparent;
+  color: #0b1020; background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  font-weight: 600; cursor: pointer; transition: transform .08s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn:hover { transform: translateY(-1px); filter: brightness(1.02); box-shadow: 0 8px 20px rgba(122,162,255,.25); }
+.btn.secondary { color: var(--text); background: rgba(255,255,255,.08); border-color: var(--card-border); }
+.btn.danger { color: #fff; background: linear-gradient(135deg, #ff8a8a, var(--danger)); }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .55rem .35rem; }
+tbody tr { border-top: 1px solid rgba(255,255,255,.08); }
+tbody tr:hover { background: rgba(255,255,255,.05); }
+
+/* Micro animation */
+@keyframes floatUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: floatUp .35s ease both; }

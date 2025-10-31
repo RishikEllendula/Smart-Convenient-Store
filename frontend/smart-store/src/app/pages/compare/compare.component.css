@@ -1,0 +1,49 @@
+:host { display:block; color: var(--fg); }
+
+.panel {
+  background: color-mix(in oklab, var(--card) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.row { display:flex; gap:.5rem; align-items:center; max-width:520px; }
+
+.input {
+  flex:1;
+  padding:.55rem .7rem;
+  border:1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--fg);
+}
+
+.btn {
+  padding:.55rem .9rem;
+  border-radius:10px;
+  border:1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  cursor:pointer;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.muted { opacity:.75; }
+
+.items {
+  width:100%;
+  border-collapse: collapse;
+  margin-top:.5rem;
+}
+.items th, .items td {
+  padding:.5rem .4rem;
+  border-bottom:1px dashed var(--border);
+}
+.items thead th {
+  border-bottom:1px solid var(--border);
+}

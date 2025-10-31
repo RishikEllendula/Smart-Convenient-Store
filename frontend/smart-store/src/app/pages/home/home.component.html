@@ -1,0 +1,68 @@
+<section class="hero">
+  <h1>Smart Convenient Stores</h1>
+  <p class="lead">
+    Register as a <strong>Customer</strong> to browse items and compare prices across shops,
+    or sign in as a <strong>Shop Owner</strong> to manage your shop and item list.
+  </p>
+  <div class="cta">
+    <a routerLink="/browse" class="btn">Browse Items</a>
+    <a routerLink="/compare" [queryParams]="{name:'Milk'}" class="btn ghost">Quick Compare</a>
+    <a routerLink="/login" class="btn accent">Login / Register</a>
+  </div>
+</section>
+
+<section class="grid">
+  <article class="card">
+    <h3>For Customers</h3>
+    <ul>
+      <li>Find shops around you and view their available items</li>
+      <li>Search by item name, unit, or shop</li>
+      <li>Instant price comparison across shops</li>
+    </ul>
+    <a routerLink="/browse" class="link">Start browsing →</a>
+  </article>
+
+  <article class="card">
+    <h3>For Shop Owners</h3>
+    <ul>
+      <li>Create and edit your shop profile</li>
+      <li>Add, update, or remove items with price &amp; unit</li>
+      <li>Your prices appear in customer comparisons</li>
+    </ul>
+    <a routerLink="/owner" class="link">Go to Owner Dashboard →</a>
+  </article>
+
+  <article class="card">
+    <h3>Quick Compare</h3>
+    <ul>
+      <li>Enter any item (e.g., “Milk”) to see cross-shop prices</li>
+      <li>Clean table view with shop, price and unit</li>
+      <li>No login required to compare</li>
+    </ul>
+    <a routerLink="/compare" [queryParams]="{name:'Milk'}" class="link">Compare now →</a>
+  </article>
+</section>
+
+<footer class="footer">
+  <div class="about">
+    <h4>About Us</h4>
+    <p>
+      Smart Convenient Stores is a demo MEAN app that helps local shops list their items
+      and lets customers discover the best prices quickly.
+    </p>
+  </div>
+
+  <div class="contact">
+    <h4>Contact</h4>
+    <ul>
+      <li>Email: support@smartstores.example</li>
+      <li>Phone: +91 90000 00000</li>
+      <li>Address: 123, Market Street, Hyderabad, IN</li>
+    </ul>
+  </div>
+</footer>
+
+<div *ngIf="auth.user() as u" style="margin-top:1rem; font-weight:600;">
+  You are logged in as: <span style="color:var(--primary)">{{ u.name }}</span>
+  <span style="opacity:.85">({{ u.role }})</span>
+</div>

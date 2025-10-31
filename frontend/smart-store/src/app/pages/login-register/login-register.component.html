@@ -1,0 +1,63 @@
+<p style="margin:.25rem 0;"><a routerLink="/">← Home</a></p>
+
+<section class="auth">
+  <div class="tabs">
+    <button class="tab" [class.active]="mode==='login'" (click)="switch('login')">Login</button>
+    <button class="tab" [class.active]="mode==='register'" (click)="switch('register')">Register</button>
+  </div>
+
+  <div class="card">
+    <!-- Messages -->
+    <p class="msg ok" *ngIf="msg">{{ msg }}</p>
+    <p class="msg err" *ngIf="err">{{ err }}</p>
+
+    <!-- LOGIN -->
+    <form *ngIf="mode==='login'" #lf="ngForm" (ngSubmit)="doLogin(lf)">
+      <label>
+        <span>Email</span>
+        <input class="input" type="email" name="email" [(ngModel)]="l.email" required />
+      </label>
+
+      <label>
+        <span>Password</span>
+        <input class="input" type="password" name="password" [(ngModel)]="l.password" required />
+      </label>
+
+      <div class="row">
+        <button class="btn" type="submit" [disabled]="busy || !lf.valid">Login</button>
+        <button class="btn ghost" type="button" (click)="switch('register')">Create account</button>
+      </div>
+    </form>
+
+    <!-- REGISTER -->
+    <form *ngIf="mode==='register'" #rf="ngForm" (ngSubmit)="doRegister(rf)">
+      <label>
+        <span>Name</span>
+        <input class="input" type="text" name="name" [(ngModel)]="r.name" required />
+      </label>
+
+      <label>
+        <span>Email</span>
+        <input class="input" type="email" name="email" [(ngModel)]="r.email" required />
+      </label>
+
+      <label>
+        <span>Password</span>
+        <input class="input" type="password" name="password" [(ngModel)]="r.password" required minlength="4" />
+      </label>
+
+      <label>
+        <span>Role</span>
+        <select class="input" name="role" [(ngModel)]="r.role" required>
+          <option value="Customer">Customer</option>
+          <option value="Owner">Owner</option>
+        </select>
+      </label>
+
+      <div class="row">
+        <button class="btn" type="submit" [disabled]="busy || !rf.valid">Create account</button>
+        <button class="btn ghost" type="button" (click)="switch('login')">Back to login</button>
+      </div>
+    </form>
+  </div>
+</section>

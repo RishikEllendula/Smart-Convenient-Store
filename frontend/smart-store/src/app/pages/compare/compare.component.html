@@ -1,0 +1,45 @@
+<p style="margin:.25rem 0;"><a routerLink="/">← Home</a></p>
+
+<section class="panel">
+  <h2>Quick Compare</h2>
+  <p class="muted">Type an item name to compare prices across all shops.</p>
+
+  <div class="row">
+    <input class="input" placeholder="e.g., Milk"
+           [(ngModel)]="query"
+           (keyup.enter)="onEnter()">
+    <button class="btn" (click)="onEnter()" [disabled]="!query.trim().length || searching">
+      {{ searching ? 'Searching…' : 'Compare' }}
+    </button>
+    <button class="btn ghost" (click)="reload()" [disabled]="searching">Reload</button>
+    <button class="btn ghost" (click)="clear()" *ngIf="query || results.length">Clear</button>
+  </div>
+</section>
+
+<section class="panel" *ngIf="results.length || searching">
+  <h3 *ngIf="!searching">Results for “{{ query }}”</h3>
+  <div class="muted" *ngIf="searching">Searching…</div>
+
+  <table class="items" *ngIf="!searching && results.length">
+    <thead>
+      <tr>
+        <th style="text-align:left;">Shop</th>
+        <th style="text-align:left;">Item</th>
+        <th style="text-align:right;">Price</th>
+        <th style="text-align:left;">Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of results">
+        <td>{{ shopLabel(r) }}</td>
+        <td>{{ r.name }}</td>
+        <td style="text-align:right;">{{ priceFmt(r.price) }}</td>
+        <td>{{ r.unit }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="muted" *ngIf="!searching && !results.length">
+    No matches found.
+  </div>
+</section>

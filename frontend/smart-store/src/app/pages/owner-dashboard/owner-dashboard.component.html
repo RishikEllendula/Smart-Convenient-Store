@@ -1,0 +1,34 @@
+<p><a routerLink="/browse">← Back to Browse</a></p>
+
+<div class="fade-in">
+  <h2>Owner Dashboard</h2>
+  <div *ngIf="msg" style="color:#66f0d7">{{msg}}</div>
+
+  <section style="margin-bottom:1.25rem;">
+    <h3>My Shop</h3>
+    <label>Name</label>
+    <input class="input" [(ngModel)]="shop.name" name="sname" />
+    <label>Address</label>
+    <input class="input" [(ngModel)]="shop.address" name="saddr" />
+    <button class="btn" (click)="saveShop()">Save Shop</button>
+  </section>
+
+  <section>
+    <h3>Items</h3>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:.5rem;align-items:center;">
+      <input class="input" placeholder="Item name" [(ngModel)]="itemForm.name" name="iname" />
+      <input class="input" type="number" placeholder="Price" [(ngModel)]="itemForm.price" name="iprice" />
+      <input class="input" placeholder="Unit" [(ngModel)]="itemForm.unit" name="iunit" />
+      <button class="btn secondary" (click)="addOrUpdateItem()">Upsert</button>
+    </div>
+
+    <table style="margin-top:1rem;">
+      <tr><th style="text-align:left">Name</th><th style="text-align:right">Price</th><th>Unit</th></tr>
+      <tr *ngFor="let it of items">
+        <td>{{it.name}}</td>
+        <td style="text-align:right">{{it.price | number:'1.2-2'}}</td>
+        <td>{{it.unit}}</td>
+      </tr>
+    </table>
+  </section>
+</div>

@@ -1,0 +1,99 @@
+<p style="margin:.25rem 0;"><a routerLink="/">← Home</a></p>
+
+<div class="browse-grid">
+  <!-- LEFT: Shops -->
+  <section class="panel">
+    <h3 style="display:flex;justify-content:space-between;align-items:center;">
+      <span>Shops</span>
+      <button class="btn ghost" (click)="reloadAll()">Reload</button>
+    </h3>
+
+    <div *ngIf="!hasShops()" class="muted">No shops yet. Ask an owner to create one.</div>
+
+    <ul class="shop-list" *ngIf="hasShops()">
+      <li *ngFor="let s of shops"
+          (click)="selectShop(s._id)"
+          [class.active]="s._id === selectedShopId">
+        <div class="shop-name">{{ s.name }}</div>
+        <div class="shop-addr">{{ s.address }}</div>
+      </li>
+    </ul>
+
+    <div class="shop-actions" *ngIf="selectedShopId">
+      <button class="btn ghost" (click)="clearSelection()">Clear selection</button>
+    </div>
+  </section>
+
+  <!-- RIGHT: Items of selected shop -->
+  <section class="panel">
+    <h3 *ngIf="selectedShopId; else pickOne"
+        style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem;">
+      <span>{{ selectedShopName() }}</span>
+      <button class="btn ghost" (click)="reloadSelected()" *ngIf="selectedShopId">Reload Items</button>
+    </h3>
+    <div class="muted" *ngIf="selectedShopId">{{ selectedShopAddress() }}</div>
+
+    <ng-template #pickOne>
+      <h3>Select a shop</h3>
+      <div class="muted">Choose a shop on the left to see its items.</div>
+    </ng-template>
+
+    <div *ngIf="selectedShopId">
+      <table class="items">
+        <thead>
+          <tr>
+            <th style="text-align:left;">Item</th>
+            <th style="text-align:right;">Price</th>
+            <th style="text-align:left;">Unit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let it of itemsOfSelected">
+            <td>{{ it.name }}</td>
+            <td style="text-align:right;">{{ it.price | number:'1.2-2' }}</td>
+            <td>{{ it.unit }}</td>
+          </tr>
+          <tr *ngIf="!hasItems()">
+            <td colspan="3" class="muted">No items in this shop yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- SEARCH across all shops -->
+<section class="panel" style="margin-top:1rem;">
+  <h3>Search items across shops</h3>
+  <div class="search-row">
+    <input class="input" placeholder="e.g., Milk"
+           [(ngModel)]="searchName"
+           (keyup.enter)="search()">
+    <button class="btn" (click)="search()" [disabled]="searching">Search</button>
+  </div>
+
+  <div *ngIf="searching" class="muted">Searching…</div>
+
+  <table class="items" *ngIf="!searching && searchResults.length">
+    <thead>
+      <tr>
+        <th style="text-align:left;">Item</th>
+        <th style="text-align:right;">Price</th>
+        <th style="text-align:left;">Unit</th>
+        <th style="text-align:left;">Shop</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of searchResults">
+        <td>{{ r.name }}</td>
+        <td style="text-align:right;">{{ r.price | number:'1.2-2' }}</td>
+        <td>{{ r.unit }}</td>
+        <td>{{ r.shopName }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!searching && !searchResults.length && searchName.trim().length" class="muted">
+    No results for “{{ searchName }}”.
+  </div>
+</section>

@@ -1,0 +1,56 @@
+:host { display:block; color: var(--fg); }
+
+.auth { max-width: 520px; margin: 0 auto; }
+
+.tabs { display:flex; gap:.5rem; margin-bottom:.5rem; }
+.tab {
+  padding:.5rem .85rem;
+  border:1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.tab.active {
+  border-color: var(--fg);
+  background: color-mix(in oklab, var(--fg) 8%, var(--card));
+}
+
+.card {
+  background: color-mix(in oklab, var(--card) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+label { display:block; margin:.6rem 0; }
+label > span { display:block; font-size:.85rem; opacity:.8; margin-bottom:.25rem; }
+
+.input {
+  width: 100%;
+  padding:.55rem .7rem;
+  border:1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--fg);
+}
+
+.row { display:flex; gap:.5rem; align-items:center; margin-top:.75rem; }
+
+.btn {
+  padding:.55rem .9rem;
+  border-radius:10px;
+  border:1px solid var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  cursor:pointer;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.msg { margin:.25rem 0 .5rem; padding:.45rem .6rem; border-radius:8px; border:1px solid var(--border); }
+.msg.ok  { color:#18794e; background: color-mix(in oklab, #66f0d7 20%, transparent); border-color: color-mix(in oklab, #66f0d7 45%, var(--border)); }
+.msg.err { color:#842029; background: color-mix(in oklab, #ffb3b3 20%, transparent); border-color: color-mix(in oklab, #ffb3b3 45%, var(--border)); }
