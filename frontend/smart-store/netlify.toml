@@ -1,0 +1,9 @@
+[build]
+  base    = "frontend/smart-store"
+  command = "npm ci && npm run build"
+  publish = "dist/smart-store/browser"
+
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200
